@@ -28,17 +28,15 @@ function timerFunc() {
     });
 }
 
-client.on('message', message => {
-  if (message.author.bot) return;
+var timer = setTimeout(timerFunc, 1000);
+client.on("message", function(message) {
+    var args = message.content.split(/ /);
+    var command = args.shift()
 
-  let command = message.content.split(" ")[0];
-  let args = message.content.split(" ").slice(1);
-
-  if (command == 'allsay') {
-if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('?|**\`ADMINISTRATOR\`ليس لديك صلاحيات`**');
-   message.channel.sendMessage(args.join("  "))
-  }
- });
+    if(command == 'allsay') {
+        message.channel.send(args.slice(1, args.length).join(" "))
+    }
+});
 client.on('message', message => {
   if (message.author.bot) return;
 
@@ -50,5 +48,10 @@ if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('
    message.channel.sendMessage(args.join("  "))
   }
  });
+client.on('message', message => {
+    if(message.content === '-راتب'){
+        message.channel.send('#daily')
+    }
+});
 
 client.login(process.env.BOT_TOKEN);

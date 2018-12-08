@@ -1,5 +1,5 @@
-﻿var ServerID = "515067466570006528"; //اي دي السيرفر
-var ChannelID = "515067564376981506";// اي دي الروم
+var ServerID = "520519864142790666"; //اي دي السيرفر
+var ChannelID = "520519966211047444";// اي دي الروم
 
 
 
@@ -28,13 +28,27 @@ function timerFunc() {
     });
 }
 
-var timer = setTimeout(timerFunc, 1000);
- client.on("message", function(message) {
-    var args = message.content.split(/ +/g);
-    var command = args.shift()
+client.on('message', message => {
+  if (message.author.bot) return;
 
-    if(command == "10say") {
-        message.channel.send(args.slice(1, args.length).join(" "))
-    }
-});
+  let command = message.content.split(" ")[0];
+  let args = message.content.split(" ").slice(1);
+
+  if (command == 'allsay') {
+if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('?|**\`ADMINISTRATOR\`ليس لديك صلاحيات`**');
+   message.channel.sendMessage(args.join("  "))
+  }
+ });
+client.on('message', message => {
+  if (message.author.bot) return;
+
+  let command = message.content.split(" ")[0];
+  let args = message.content.split(" ").slice(1);
+
+  if (command == (process.env.BOT_COMMAND)) {
+if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('?|**\`ADMINISTRATOR\`ليس لديك صلاحيات`**');
+   message.channel.sendMessage(args.join("  "))
+  }
+ });
+
 client.login(process.env.BOT_TOKEN);
